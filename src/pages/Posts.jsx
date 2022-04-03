@@ -10,6 +10,7 @@ import Pagination from "../components/UI/pagination/Pagination";
 import {useFetching} from "../hooks/useFetching";
 import {usePosts} from "../hooks/usePost";
 import Loader from "../components/UI/Loader/Loader";
+import {useNavigate} from "react-router-dom";
 
 
 function Posts() {
@@ -33,8 +34,10 @@ function Posts() {
 
 
 
+
     useEffect(() => {
         fetchPosts(limit, page);
+
     }, [])
 
     const createPost = (newPost) => {

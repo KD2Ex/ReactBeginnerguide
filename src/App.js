@@ -1,42 +1,33 @@
-import React, {useRef, useState} from 'react';
-import Counter from './components/Counter';
-import ClassCounter from "./components/ClassCounter";
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import './styles/App.css';
-import PostItem from "./components/PostItem";
-import PostList from "./components/PostList";
-import MyButton from "./components/UI/button/MyButton";
-import MyInput from "./components/UI/input/MyInput";
-import PostForm from "./components/PostForm";
-
-
+import {BrowserRouter, Link, Navigate, Redirect, Route, Router, Routes, Switch} from "react-router-dom";
+import About from "./pages/About";
+import Posts from "./pages/Posts";
+import Navbar from "./components/UI/Navbar/Navbar";
+import Error from "./pages/Error";
 
 function App() {
-    const [posts, setPosts] = useState([
-        {id: 1, title: 'Javascript', body: 'Description'},
-        {id: 2, title: 'Javascript 2', body: 'Description'},
-        {id: 3, title: 'Javascript 3', body: 'Description'},
-    ])
 
-    const createPost = (newPost) => {
-        setPosts([...posts, newPost]);
-        console.log(newPost)
-    }
+    return (
+        <BrowserRouter>
+            <Navbar/>
+            <Routes>
+                <Route path="/about" element={<About/>}>
 
+                </Route>
+                <Route path="/posts" element={<Posts/>}>
 
+                </Route>
+                <Route path="/error" element={<Error/>}>
 
-    const removePost = (post) => {
-        setPosts(posts.filter(p => p.id !== post.id));
-        console.log(post);
-    }
+                </Route>
+                <Route path="*"
+                    element={<Navigate to="/error" replace/>}
+                />
+            </Routes>
 
-
-     return (
-         <div className="App">
-            <PostForm create={createPost}/>
-            <PostList remove={removePost} posts={posts} title={'Посты про JS'}/>
-
-         </div>
-     );
+        </BrowserRouter>
+    );
 }
 
 export default App;
